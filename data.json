@@ -1,0 +1,5 @@
+[
+  { "id":  1, "todo": "Get milk", "deadline": null, "done": true },
+  { "id":  2, "todo": "Walk the dog", "deadline": null, "done": false },
+  { "id":  3, "todo": "Get to know service workers", "deadline": "2016-09-14", "done":false }
+]

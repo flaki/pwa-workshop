@@ -1,0 +1,67 @@
+header, main {
+  font-family: 'Baloo Paaji', cursive;
+  font-weight: normal;
+}
+body {
+  background-image: url(/img/bg.jpg);
+  color: white;
+  background-size: 160vw;
+  background-position: -30vw calc(100vh - 50vw);
+  background-repeat: no-repeat;
+  background-color: black;
+
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 10vh;
+  line-height: 10vh;
+  text-align: center;
+
+  background-image: url(/img/logo-w-small.png);
+  background-size: 6vh;
+  background-repeat: no-repeat;
+  background-position: 2vh;
+}
+
+main {
+  height: 90vh;
+  overflow-y: scroll;
+  background: linear-gradient(to bottom, black, rgba(0,0,0,0.66));
+}
+
+main > ol {
+  min-height: 100%;
+  list-style-type: none;
+  padding: 0 1em;
+}
+main > ol:empty {
+  background-image: url(/img/logo-w-small.png);
+  background-repeat: no-repeat;
+  background-position: center 1em;
+
+  animation: 1s pulse ease-in alternate infinite;
+}
+main > ol > li {
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% { opacity: 1 }
+  100% { opacity: 0.2 }
+}
+
+main > ol > li.is-done {
+  color: green;
+}
+main > ol > li::before {
+  content: '\2610  ';
+}
+main > ol > li.is-done::before {
+  content: '\2611  ';
+}
+
+main > ol > li:not([data-deadline='']) {
+  color: red;
+}
