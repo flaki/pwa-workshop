@@ -1,7 +1,9 @@
 # Empire TODO
 
-> npm install
-> npm run start
+```
+npm install
+npm run start
+```
 
 # Structure:
 * v0 - no offline support
