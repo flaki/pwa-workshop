@@ -6,7 +6,7 @@ npm install
 npm run start
 ```
 
-Open the demo at http://localhost:8888
+Open the demo at http://localhost:8888/v0
 
 ## TOC:
 * v0 - no offline support
