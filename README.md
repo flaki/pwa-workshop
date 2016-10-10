@@ -1,8 +1,10 @@
 # Empire TODO
 
 # Quickstart
-> npm install
-> npm run start
+```
+npm install
+npm run start
+```
 
 Open the demo at http://localhost:8888
 
