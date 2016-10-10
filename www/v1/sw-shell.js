@@ -12,7 +12,6 @@ const ASSETS = [
   "./index.html",
   "./css/style.css",
   "./js/app.js",
-  "./js/sw.js",
 ];
 
 self.addEventListener('install', (e) => {
