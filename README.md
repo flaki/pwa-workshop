@@ -42,20 +42,72 @@ native applications in usability and user engagement.
 ## Technologies and web API/JavaScript features used
 
 ### Arrow functions
-...
+EcmaScript 2015 arrow functions are a new syntactic sugar for creating
+function objects. Why? See Fetch API examples below. Also useful for
+functional callbacks (e.g. `Array.(map|reduce|etc)`)
+
+**TL;DR:**  
+```javascript
+a => a + 1
+
+(a, b) => { return a + b; });
+```
+…is (for all intents and purposes) equivalent to…
+```javascript
+(function(a) { return a + 1; }).bind(this);
+
+(function(a, b) { return a + b; }).bind(this);
+```
+
+[Arrow functions on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
 ### Promises
-...
+A basic primitive to facilitate asynchronous control flow. Promise is a token
+object, which signifies a pending asynchronous operation. To this token object,
+handlers could be attached to run on the eventual resolution of the promise.
+
+```javascript
+let token = operationThatReturnsAPromise();
+
+token.then(function(result) {
+  console.log('Promise resolved to the value: ', result);
+}).catch(function(failure) {
+  console.log('Promise failed to resolve (rejected), with the reason being: ', failure);
+})
+```
+
+Why? See Fetch API examples below.
+
+[Promises on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
 
 ### Fetch API
-...
+An easy-to-use promise-based alternative for XMLHttpRequest.
+
+```javascript
+fetch("data.json").then(function(p) {
+  return p.json();
+} ).then( function(c) {
+  console.log(c);
+});
+
+// Or, the same with Arrow Functions
+fetch("data.json")
+  .then( p => p.json() )
+  .then( c => console.log(c) );
+```
+
+[Fetch API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+
 
 ### Cache API
-...
+An easy way to store network `Request`s and corresponding `Response`s.
+Accessible both from the main thread and workers.
+
+[Cache API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
 
 
-
-## *"v0":* no service worker
+## `v0` – No service worker
 
 The first demo is the simplest, just to showcase the basic structure of the app we
 will be using for the more contrived demos. The app includes both a frontend (the
@@ -91,7 +143,7 @@ and control over cached resources (no more cache-bustin' ;D).
 
 
 
-## *"v1":* static asset caching for performance
+## `v1` – Static asset caching for improved performance
 
 In this demo we create our first-ever service worker. Here we are not really looking
 into solving *all* our problems, rather just trying to understand the main concepts
@@ -174,7 +226,7 @@ want to be moving towards *offline-first* behavior.
 
 
 
-## *v1b:* add-to-homescreen and push
+## `v1b` – Add-to-homescreen and Push Notifications
 
 ### Running
 
@@ -211,13 +263,17 @@ Also, please note that service workers have a startup cost.
 
 
 
-## *v2:* network-first approach with offline fallback
+## `v2` – Network-first approach with offline fallback
 Before we dive into an offline-first approach we will look into using another,
 frequently used and rather straightforward pattern, the network-first (with fallback)
 method.
 
 This demo caches any accessed content when network is available, and provides
 fallback content, loaded from the cache for offline scenarios (offline fallback).
+
+To make this service worker fairly easy to understand, we made some tradeoffs,
+and left the shell out (which is not ideal), see notes and `service-worker-with-shell.js`
+for the fix.
 
 ### Running
 
@@ -237,20 +293,25 @@ catch() cache
 ### Notes
 So while this behavior is similar (but not the same) as an
 `appcache.manifest`-defined behavior (in that it's provides fallbacks to counter
-network failures), it is not very useful.
+network failures), it is still not very useful.
 
 For example, we have lost the performance gains of service worker caching, since
-all non-static asset requests first go to the network, which even with good network
+all requests now first go to the network, which even with good network
 conditions results in latency (and also, unneccessary battery/bandwidth consumption).
-But even in this rather simple example, the real power of service workers shines
-through - the flexibility. We already know how to solve the above performance
-problem: just look in all caches. This may or may not solve our problem depending
-on our application use case, but we can certainly work our code to improve and
-cater whatever need arises so we can make sure we cover all our bases, making
-the appropriate tradeoffs to fit our needs and expectations.
 
-Some techiques:
-* **Partition fetch handler** - use url prefixes and corresponding caches to handle
+With that said, in this rather simple example, the real power of service workers
+can already shines through - flexibility. We already know how to solve the above
+issue, and we bring back the `C_STATIC` cache in `service-worker-with-shell.js`.
+
+In this (significantly more elaborate) service worker we treat static and dynamic
+assets differently - and this is the real power of service workers. The current
+approach may or may not solve our problem depending on our application use case,
+but we can certainly work our code to improve and cater whatever need arises so
+we can make sure we cover all our bases, making the appropriate tradeoffs to fit
+our needs and expectations.
+
+Other useful techiques:
+* **Partition fetch handler** - use URL prefixes and corresponding caches to handle
   requests differently
 
 **`<response>.clone()`**  
@@ -283,16 +344,41 @@ because of various network impediments, no data is coming through.
 
 
 
-## *v3:* - cache-first caching with separate caches
+## `v3` – Cache-first approach with separate caches
+In this demo we will switch the order of caching and network in the name of
+going offline-first. This version will serve every asset from cache if it's
+found in cache, and will fetch and cache any asset that's not already in there,
+using both the static and dynamic caches. This all sounds reasonable, but as we
+will discover, even this approach is not without flaw.
 
 ### Running
 
 ### Code Guide
 
 ### Notes
+The flaw is quite easily noticeable - responses in the dynamic cache are never
+updated. This was okay for the static cache, as we could make sure those updated
+on service worker update, but here it becomes a problem, as all URLs end up
+pinned to the version they first were cached with, never to be updated.
+
+From the last two demos one might start to grasp why flexibility, and the ability
+to customize behavior is the strongest suit of service workers - different
+applications and different approaches require different tradeoffs. In a service
+worker making these tradeoffs become easier as one doesn't have to come up with
+a "one-size-fits-all" solution, but can provide the best solution/tradeoff for
+different (groups of) assets.
+
+`service-worker-fixed.js` tries to solve the cache update problem, by sending
+the cached value back to the browser, while simultaneously reaching out to the
+network to download an updated version. While this solves the non-updating caches
+problem, this still delays the updates — a possiblesolution to this problem can
+be found `v6`, by using main thread messaging.
+
+The other issue, extraneous bandwidth usage is a trickier issue to come over,
+and usually depends on the application usecase.
 
 
-## *v4:*:
+## `v4` – Local API data caching & offline processing
 
 ### Running
 
