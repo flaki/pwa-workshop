@@ -1,5 +1,6 @@
 {
  "name": "Empire TODO",
+ "gcm_sender_id": "pwa-workshop",
  "icons": [
   {
    "src": "/img/icons/android-icon-36x36.png",
