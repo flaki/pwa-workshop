@@ -1,18 +1,18 @@
-const C_SHELL = "cShell";
+const C_SHELL = 'cShell-'+DEMO_ID;
 
 
 const ASSETS = [
-  "/favicon.ico",
-  "/img/bg.jpg",
-  "/img/logo.png",
-  "/img/logo-small.png",
-  "/img/logo-w.png",
-  "/img/logo-w-small.png",
-  "./",
-  "./index.html",
-  "./css/style.css",
-  "./js/app.js",
-  "./js/sw.js",
+  '/favicon.ico',
+  '/img/bg.jpg',
+  '/img/logo.png',
+  '/img/logo-small.png',
+  '/img/logo-w.png',
+  '/img/logo-w-small.png',
+  './',
+  './index.html',
+  './css/style.css',
+  './js/app.js',
+  './js/sw.js',
 ];
 
 self.addEventListener('install', (e) => {

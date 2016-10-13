@@ -1,4 +1,5 @@
-const C_DYNAMIC = "cDynamic";
+const C_DYNAMIC = 'cDynamic-'+DEMO_ID;
+
 
 self.addEventListener('install', e => {
   // Reinitialize dynamic cache

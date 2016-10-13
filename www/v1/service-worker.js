@@ -1,3 +1,5 @@
+const DEMO_ID = 'v1';
+
 importScripts('sw-shell.js');
 
 

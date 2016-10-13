@@ -1,3 +1,5 @@
+const DEMO_ID = 'v3';
+
 importScripts('sw-shell.js');
 importScripts('sw-dynamic.js');
 
