@@ -1,5 +1,13 @@
-[
-  { "id":  1, "todo": "Get milk", "deadline": null, "done": true },
-  { "id":  2, "todo": "Walk the dog", "deadline": null, "done": false },
-  { "id":  3, "todo": "Get to know service workers", "deadline": "2016-09-14", "done":false }
-]
+{
+  "todos": [
+    { "id":  1, "todo": "Get milk", "deadline": null, "by": "you", "done": true },
+    { "id":  2, "todo": "Walk the dog", "deadline": null, "by": "you", "done": false },
+    { "id":  3, "todo": "Get to know service workers", "deadline": "2016-09-14", "by": "the_author", "done": false }
+  ],
+
+  "notes": [
+    { "id":  1, "title": "Offline-first apps", "contents": "Offline-first apps are those remarkably crafted software pieces that work perfectly fine without a network connection, as they treat the network as a nice-to-have progressive enhancement and nothing more.", "by": "you", "timestamp": "Thu Oct 13 2016 11:09:45 GMT+0200" },
+    { "id":  2, "title": "Shopazon wishlist", "contents": "ACME Mobile Power 5000 5K mAh USB3.4\nProgressive Apps for Dummies (paperback)\nweePad Mini 8S Pro WiFi+Lie-Fi 5Gbps", "by": "you", "timestamp": "Thu Oct 13 2016 11:09:54 GMT+0200" }
+  ]
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

@@ -16,17 +16,33 @@ app.use(bodyParser.json());
 
 let data = require('./data.json');
 
+
 app.use('/api/todos', function(req, res) {
   if (req.method === 'GET') {
-    return res.json(data);
+    return res.json(data.todos);
   }
 
   let id = req.body.id, done = req.body.done;
-  data.forEach(r => {
+  data.todos.forEach(r => {
     if (~id.indexOf(r.id)) r.done = done;
   });
 
   return res.json({ done: true, err: null });
+});
+
+app.use('/api/notes/search', function(req, res) {
+  let sparam = new RegExp(req.query.q||'.*', 'i');
+
+  console.log(req.query);
+  return res.json(data.notes.filter(
+    note => note.title.match(sparam)||note.contents.match(sparam)
+  ));
+});
+
+app.use('/api/notes', function(req, res) {
+  if (req.method === 'GET') {
+    return res.json(data.notes);
+  }
 });
 
 
