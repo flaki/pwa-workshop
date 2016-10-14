@@ -28,7 +28,7 @@ app.use('/api/todos', function(req, res) {
     if (~id.indexOf(r.id)) r.done = done;
   });
 
-  return res.json({ done: true, err: null });
+  return res.json({ done: done, err: null });
 });
 
 app.use('/api/notes/search', function(req, res) {
