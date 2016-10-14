@@ -1,0 +1,159 @@
+header, main, footer {
+  font-family: 'Baloo Paaji', cursive;
+  font-weight: normal;
+}
+body {
+  background-image: url(/img/bg.jpg);
+  color: white;
+  background-size: 160vw;
+  background-position: -30vw calc(100vh - 50vw);
+  background-repeat: no-repeat;
+  background-color: black;
+
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 15vh;
+  line-height: 15vh;
+  text-align: center;
+
+  background-image: url(/img/logo-w-small.png);
+  background-size: 6vh;
+  background-repeat: no-repeat;
+  background-position: 2vh;
+}
+header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+main {
+  height: 70vh;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, black, rgba(0,0,0,0.66));
+}
+
+main > ol {
+  list-style-type: none;
+  padding: 0 1em;
+}
+main > ol:empty {
+  background-image: url(/img/logo-w-small.png);
+  background-repeat: no-repeat;
+  background-position: center 1em;
+
+  animation: 1s pulse ease-in alternate infinite;
+  min-height: 100vw;
+}
+main > ol > li {
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% { opacity: 1 }
+  100% { opacity: 0.2 }
+}
+
+main > ol > li.is-done {
+  color: green;
+}
+main > ol > li::before {
+  content: '\2610  ';
+}
+main > ol > li.is-done::before {
+  content: '\2611  ';
+}
+
+main > ol > li:not([data-deadline='']) {
+  color: red;
+}
+
+
+footer {
+  background: rgba(0,0,0,.66);
+  height: 15vh;
+  display: flex;
+}
+
+footer nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+footer nav > a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 2em
+}
+
+body:not([id]) footer nav > a:nth-child(1),
+body#notes footer nav > a:nth-child(2) {
+  text-shadow: -3px -3px 0px white, -3px 0 0px white, -3px 3px 0px white, 0 -3px 0px white, 0 3px 0px white,3px -3px 0px white,3px 0 0px white, 3px 3px 0px white;
+  color: green;
+}
+
+
+#notes main > ul:empty {
+  background-image: url(/img/logo-w-small.png);
+  background-repeat: no-repeat;
+  background-position: center 1em;
+
+  animation: 1s pulse ease-in alternate infinite;
+  min-height: 100vw;
+}
+#notes main li {
+  margin: 1em 0;
+}
+#notes main li > strong {
+  font-size: 1.25em;
+}
+#notes main li > p {
+  font-weight: 100;
+  margin: .25em 0;
+  line-height: 1.4em;
+  color: #0bb;
+}
+
+
+button#search {
+  position: absolute;
+  right: 2vh;
+  top: 4vh;
+  font-size: 66%;
+
+  width: 4em;
+  height: 4em;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+button#search:hover {
+  background-color: red;
+}
+button#search::before {
+  content: '';
+  position: absolute;
+  background: black;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  top: .7em; left: .7em;
+}
+button#search::after {
+  content: '';
+  background: black;
+  position: absolute;
+  width: 1.4em;
+  height: .7em;
+  border-radius: .3em;
+  top: 2.2em; left: 1.8em;
+  transform: rotate(45deg)
+}

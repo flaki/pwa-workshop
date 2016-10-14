@@ -8,6 +8,7 @@ const ASSETS = [
   '/img/logo-small.png',
   '/img/logo-w.png',
   '/img/logo-w-small.png',
+  '/lib/whatwg-fetch/fetch.js',
   './',
   './index.html',
   './css/style.css',

@@ -22,12 +22,12 @@ self.addEventListener('fetch', function(event) {
   if (event.request.method === 'GET') {
     event.respondWith(
       caches.match(event.request)
-        .then(ASSETS.indexOf(response.url) => {
+        .then(response => {
           let finalResponse;
           let responseUrl = new URL(response.url);
 
           // Short-circuit, don't fetch on static resources
-          if (ASSETS.indexOf(responseUrl.pathname) !== -1) return response;
+          if (ASSETS.indexOf(responseUrl.pathname) !== -1) {
             if (response) return response;
 
             // Return cached response

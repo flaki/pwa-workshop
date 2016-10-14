@@ -11,6 +11,7 @@ const ASSETS = [
   '/lib/whatwg-fetch/fetch.js',
   './',
   './index.html',
+  './notes.html',
   './css/style.css',
   './js/app.js',
   './js/sw.js',

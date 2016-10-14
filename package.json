@@ -11,6 +11,8 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "web-push": "^3.0.0"
+    "idb-keyval": "^2.1.2",
+    "web-push": "^3.0.0",
+    "whatwg-fetch": "^1.0.0"
   }
 }

@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 8888;
 
 const app = express();
 
-app.use(express.static(path.join(__dirname,'www')));
+app.use(express.static(path.join(__dirname, 'www')));
+app.use('/lib', express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.json());
 
 // ...
